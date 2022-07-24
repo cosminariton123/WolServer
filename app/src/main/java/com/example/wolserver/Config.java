@@ -2,6 +2,8 @@ package com.example.wolserver;
 
 public class Config {
 
+    public static Integer timeoutmilis = 1000;
+
     public static Integer wolPort = 6666;
 
     public static String serverIp = "192.168.100.18";

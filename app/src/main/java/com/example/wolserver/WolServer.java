@@ -1,10 +1,12 @@
 package com.example.wolserver;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -79,9 +81,14 @@ public class WolServer {
         }
     }
 
-    private Boolean getStatusOfHostServer() throws java.io.IOException {
-        InetAddress address = InetAddress.getByName(Config.serverIp);
-        return address.isReachable(1000);
+    private Boolean getStatusOfHostServer() {
+        try (Socket soc = new Socket()) {
+            soc.connect(new InetSocketAddress(Config.serverIp, Config.serverPort), Config.timeoutmilis);
+            soc.close();
+            return true;
+        } catch (IOException ex) {
+            return false;
+        }
     }
 
     public void closeCurrentConnection() throws java.io.IOException{

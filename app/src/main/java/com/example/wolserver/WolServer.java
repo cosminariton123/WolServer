@@ -71,7 +71,7 @@ public class WolServer {
             Socket serverClientSocket = new Socket(Config.serverIp, Config.serverPort);
             OutputStream serverOut = serverClientSocket.getOutputStream();
 
-            serverOut.write(inputCommand.getBytes(StandardCharsets.UTF_8));
+            serverOut.write(inputCommand.getBytes());
             serverOut.flush();
             serverOut.close();
             serverClientSocket.close();
